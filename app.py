@@ -24,6 +24,7 @@ def home():
     root = tree.getroot()
     list_font_size_arab, list_font_size_terjemah ,dzikir_pagi, dzikir_pagi_arti, dzikir_sore, dzikir_sore_arti = root
 
+
     dzikir_pagi_list = xml_to_jsonlist(dzikir_pagi, dzikir_pagi_arti)
     dzikir_sore_list = xml_to_jsonlist(dzikir_sore, dzikir_sore_arti)
 
