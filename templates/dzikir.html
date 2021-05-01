@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Dzikir Pagi Sore</title>
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/apple-touch-icon.png') }}">
+    <link rel="apple-touch-startup-image" href="{{ url_for('static', filename='img/launch.png') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <script src="https://kit.fontawesome.com/a9acfd9dac.js" crossorigin="anonymous"></script>
+
+    <style>
+        a {color:#999}
+
+        .ic-sunset {
+            background-image: url("{{ url_for('static', filename='img/sunset.svg') }}");
+            width: 24px;
+            height: 24px;
+        }
+        .ic-sunrise {
+            background-image: url("{{ url_for('static', filename='img/sunrise.svg') }}");
+            width: 24px;
+            height: 24px;
+        }
+
+
+
+    </style>
+</head>
+<!--<body class="has-background-white-ter">-->
+<!--<body class="has-background-danger-light	">-->
+<!--<body class="has-background-warning-light	">-->
+<!--<body class="has-background-info-light		">-->
+
+<body class="
+{% if mode == 'dark' %}
+has-background-black
+{% else %}
+has-background-grey-light
+{% endif %}
+">
+
+<nav class="navbar 
+{% if mode == 'dark'%}
+has-background-black has-text-white
+{% else %}
+has-background-grey-light
+{% endif %}"
+     role="navigation" aria-label="main navigation">
+    <!-- Brand/logo -->
+
+    <div class="container is-flex is-justify-content-space-between is-max-desktop" style="max-width:480px">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/?mode=light&dzikir={{dzikir}}">
+            <span class="icon">
+                <i class="fas fa-lightbulb" style="color: White;"></i>
+            </span>
+            </a>
+            <a class="navbar-item" href="/?mode=dark&dzikir={{dzikir}}">
+            <span class="icon">
+                <i class="fas fa-lightbulb"></i>
+            </span>
+            </a>
+            </div>
+
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/?dzikir=pagi&mode={{mode}}">
+                <span class="icon">
+                    <i class="ic-sunrise"></i>
+                </span>
+            </a>
+            <a class="navbar-item" href="/?dzikir=sore&mode={{mode}}">
+                <span class="icon">
+                    <i class="ic-sunset"></i>
+                </span>
+            </a>
+        </div>
+
+        <div class="navbar-brand">
+            <a class="navbar-item" href="#bacaan6">
+            <span class="icon">
+                <i class="fas fa-caret-down"></i>
+            </span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<section class="section py-5" id="contentnya">
+    <div class="container is-max-desktop" style="max-width:480px">
+        {% for data in dzikir_list %}
+
+        <div class="card mb-5 {% if mode == 'dark'%}has-background-black-ter has-text-white{% endif %}"
+             id="bacaan{{loop.index}}">
+            <header class="card-header ">
+                <p class="card-header-title {% if mode == 'dark'%}has-text-white{% endif %}">
+                    {% if dzikir == 'pagi'%}
+                    <span class="icon">
+                        <i class="ic-sunrise"></i>
+                    </span>
+                    {% else %}
+                    <span class="icon">
+                        <i class="ic-sunset"> </i>
+                    </span>
+                    {% endif %}
+                    {{data['judul']|safe}}
+                </p>
+                <span class="content is-small mr-5 mt-3">{{loop.index}}/{{loop.length}}</span>
+            </header>
+
+            <div class="card-content">
+
+                {% for arab in data['arab']%}
+                <div class="content has-text-right my-0 py-0">
+                    {{arab}}
+                </div>
+                <div class="content my-0 py-0 is-small">
+                    {{data['arti'][loop.index-1]}}
+                </div>
+                {% endfor %}
+            </div>
+
+            <footer class="card-footer"
+                    {%if mode=='dark'%} style="border-color:#333" {%endif%}>
+                <p class="card-footer-item is-size-7 has-text-grey-light"
+                   {%if mode=='dark'%} style="border-color:#333" {%endif%}>
+                    {{data['arti'][-2][:36]}}...
+                </p>
+                <a href="#bacaan{{loop.index+1}}" class="card-footer-item is-size-7">
+                    <p>
+                        {{data['arti'][-1]}}
+                        <span class="icon">
+                            <i class="fas fa-caret-down"></i>
+                        </span>
+
+                    </p>
+                </a>
+            </footer>
+        </div>
+
+        {% endfor %}
+
+    </div>
+</section>
+</body>
+</html>
