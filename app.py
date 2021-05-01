@@ -20,7 +20,7 @@ def xml_to_jsonlist(dzikir_arab, dzikir_arti):
 def home():
     mode = request.args.get('mode') or 'light'
     dzikir = request.args.get('dzikir')
-    tree = ET.parse('dzikir.xml')
+    tree = ET.parse('data/dzikir.xml')
     root = tree.getroot()
     list_font_size_arab, list_font_size_terjemah ,dzikir_pagi, dzikir_pagi_arti, dzikir_sore, dzikir_sore_arti = root
 
@@ -39,4 +39,4 @@ def home():
 
 
 if __name__ == "__main__":
-    app.run()    
+    app.run(debug=True)
