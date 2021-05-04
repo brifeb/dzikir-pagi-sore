@@ -4,7 +4,7 @@ import datetime
 import os
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
-DATA_DIR = os.path.join(PROJECT_ROOT, "data")
+DATA_DIR = os.path.join(PROJECT_ROOT, "data/")
 
 app = Flask(__name__)
 
